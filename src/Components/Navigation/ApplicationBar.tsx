@@ -18,7 +18,7 @@ export default function ApplicationBar(): ReactElement {
                         height: 40,
                     }}
                     alt="SpaceX"
-                    src={'spacex-logo.png'}
+                    src={'/spacex-logo.png'}
                 />
             </Box>
         </AppBar>
