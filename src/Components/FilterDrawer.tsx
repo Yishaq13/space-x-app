@@ -25,9 +25,6 @@ export function FilterDrawer(props: FilterDrawerProps): ReactElement {
     useEffect(() => {
         setTypeFilter(props.type)
     }, [props.type])
-    const handleDrawerClose = () => {
-        props.setFilterDrawerOpen(false)
-    }
 
     const resetFilters = () => {
         props.setTypeFilter('')
@@ -55,7 +52,7 @@ export function FilterDrawer(props: FilterDrawerProps): ReactElement {
                         id="filter-drawer-close-button"
                         sx={{ ml: 'auto' }}
                         color="primary"
-                        onClick={() => handleDrawerClose()}
+                        onClick={() => props.setFilterDrawerOpen(false)}
                     >
                         <Close />
                     </Button>
@@ -84,7 +81,7 @@ export function FilterDrawer(props: FilterDrawerProps): ReactElement {
                 >
                     <Box display="flex" alignItems="end" flexGrow={1}>
                         <Button onClick={resetFilters} variant="outlined">
-                            Reset
+                            Clear
                         </Button>
                         <Button
                             sx={{ ml: 2 }}
