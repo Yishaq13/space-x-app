@@ -23,7 +23,7 @@ import { InView } from 'react-intersection-observer'
 import theme from '../../theme'
 
 interface Props {
-    data: Ships
+    ships: Ship[]
     fetchMoreData: () => void
 }
 export default function GalleryView(props: Props): ReactElement {
@@ -31,15 +31,21 @@ export default function GalleryView(props: Props): ReactElement {
 
     return (
         <Box display="flex" flexDirection="column">
-            <Box m={4} justifyContent="center" display="flex">
+            <Box
+                m={4}
+                justifyContent="center"
+                display="flex"
+                flexDirection="column"
+            >
                 <ImageList
                     variant="quilted"
                     cols={fullScreen ? 1 : 2}
                     rowHeight={fullScreen ? 300 : 400}
                 >
-                    {props.data.ships.map((item) => (
-                        <GalleryItem ship={item} />
-                    ))}
+                    {props.ships &&
+                        props.ships.map((ship: Ship, index: number) => (
+                            <GalleryItem ship={ship} key={index} />
+                        ))}
                 </ImageList>
             </Box>
             <InView onChange={props.fetchMoreData} />
@@ -66,14 +72,14 @@ function GalleryItem(props: itemProps): ReactElement {
                     max-height="400px"
                 />
                 <ImageListItemBar
-                    title={props.ship.id}
+                    title={props.ship.name}
                     actionIcon={
                         <IconButton
                             onClick={() => setOpen(true)}
                             sx={{
                                 color: 'rgba(255, 255, 255, 0.54)',
                             }}
-                            aria-label={`info about ${props.ship.id}`}
+                            aria-label={`info about ${props.ship.name}`}
                         >
                             <InfoIcon />
                         </IconButton>
@@ -132,7 +138,7 @@ function GalleryItem(props: itemProps): ReactElement {
                                 </TableRow>
                                 <TableRow>
                                     <TableCell component="th" scope="row">
-                                        <Typography>Build:</Typography>
+                                        <Typography>Year Build:</Typography>
                                     </TableCell>
                                     <TableCell align="right">
                                         <Typography>

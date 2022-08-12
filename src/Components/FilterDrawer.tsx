@@ -8,7 +8,7 @@ import {
     TextField,
     Typography,
 } from '@mui/material'
-import { ReactElement } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 
 interface FilterDrawerProps {
     open: boolean
@@ -20,6 +20,11 @@ interface FilterDrawerProps {
 const Types = ['High Speed Craft', 'Cargo', 'Tug', 'Barge']
 
 export function FilterDrawer(props: FilterDrawerProps): ReactElement {
+    const [typeFilter, setTypeFilter] = useState<string>('')
+
+    useEffect(() => {
+        setTypeFilter(props.type)
+    }, [props.type])
     const handleDrawerClose = () => {
         props.setFilterDrawerOpen(false)
     }
@@ -30,6 +35,7 @@ export function FilterDrawer(props: FilterDrawerProps): ReactElement {
     }
 
     const handleAcceptFilterChanges = () => {
+        props.setTypeFilter(typeFilter)
         props.setFilterDrawerOpen(false)
     }
 
@@ -59,8 +65,8 @@ export function FilterDrawer(props: FilterDrawerProps): ReactElement {
                     <TextField
                         label="Type"
                         select
-                        value={props.type}
-                        onChange={(e) => props.setTypeFilter(e.target.value)}
+                        value={typeFilter}
+                        onChange={(e) => setTypeFilter(e.target.value)}
                     >
                         {Types.map((type) => (
                             <MenuItem key={type} value={type}>

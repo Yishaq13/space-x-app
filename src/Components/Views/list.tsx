@@ -15,15 +15,15 @@ import CardMedia from '@mui/material/CardMedia'
 import theme from '../../theme'
 
 interface Props {
-    data: Ships
+    ships: Ship[]
     fetchMoreData: () => void
 }
 
 export default function ListView(props: Props): ReactElement {
     return (
         <Box display="flex" flexDirection="column">
-            {props.data &&
-                props.data.ships.map((ship: Ship, index) => (
+            {props.ships &&
+                props.ships.map((ship: Ship, index: number) => (
                     <Card
                         key={index}
                         sx={{

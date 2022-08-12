@@ -22,7 +22,7 @@ export default function Dashboard(): ReactElement {
     const [typeFilter, setTypeFilter] = useState<string>('')
     const [filterDrawerOpen, setFilterDrawerOpen] = useState(false)
     const { loading, data, fetchMore } = useQuery<Ships>(getShips, {
-        variables: { offset: 0, limit: 4 },
+        variables: { offset: 0, limit: 4, type: typeFilter },
         fetchPolicy: 'cache-and-network',
     })
 
@@ -58,7 +58,6 @@ export default function Dashboard(): ReactElement {
                     }}
                 >
                     <ToggleButtonGroup
-                        color="primary"
                         value={listView ? 1 : 2}
                         exclusive
                         onChange={() => setListView(!listView)}
@@ -90,12 +89,12 @@ export default function Dashboard(): ReactElement {
                     <Box>
                         {listView ? (
                             <ListView
-                                data={data}
+                                ships={data.ships}
                                 fetchMoreData={fetchMoreData}
                             />
                         ) : (
                             <GalleryView
-                                data={data}
+                                ships={data.ships}
                                 fetchMoreData={fetchMoreData}
                             />
                         )}
